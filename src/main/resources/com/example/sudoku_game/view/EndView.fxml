@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0a0018;" stylesheets="@css/StyleEnd.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku_game.controller.EndController">
+   <top>
+      <VBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="177.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="winText" text="YOU WIN" textAlignment="CENTER" textFill="#3dbc39">
+               <font>
+                  <Font name="Arial Black" size="38.0" />
+               </font>
+               <effect>
+                  <Glow>
+                     <input>
+                        <Bloom />
+                     </input>
+                  </Glow>
+               </effect>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="subtitleText" text="CHALLENGE YOUR MIND" textAlignment="CENTER" textFill="#b8b8b8">
+               <font>
+                  <Font size="10.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-border-color: #2cd4d7; -fx-border-radius: 5; -fx-border-width: 2; -fx-effect: dropshadow(gaussian, #00e0ff, 10, 0.5, 0, 0);" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+               <children>
+                  <Label fx:id="timeLable" text="TIEMPO" textAlignment="CENTER" textFill="#eeeeee">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="timeText" text="05:25" textAlignment="CENTER" textFill="#00e0ff">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="70.0">
+               <children>
+                  <Label fx:id="mistakeLabel" text="ERRORES" textAlignment="CENTER" textFill="#eeeeee">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="mistakeText" text="2" textAlignment="CENTER" textFill="#00e0ff">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="70.0">
+               <children>
+                  <Label fx:id="helpLabel" text="AYUDAS" textAlignment="CENTER" textFill="#eeeeee">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="helpText" text="1" textAlignment="CENTER" textFill="#00e0ff">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="100.0" right="100.0" top="30.0" />
+         </BorderPane.margin>
+         <effect>
+            <Glow />
+         </effect>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </center>
+   <bottom>
+      <VBox alignment="CENTER" prefHeight="78.0" prefWidth="401.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="againBtn" mnemonicParsing="false" onAction="#onAgainClick" style="-fx-background-color: #0D0221; -fx-border-color: #C000FF; -fx-border-radius: 3; -fx-border-width: 1; -fx-effect: dropshadow(gaussian,  #C000FF, 10, 0.5, 0, 0);" text="JUGAR OTRA VEZ" textFill="#ef4585">
+               <effect>
+                  <Glow />
+               </effect>
+            </Button>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="quitBtn" mnemonicParsing="false" onAction="#onQuitClick" style="-fx-background-color: #0D0221; -fx-border-color: #00E0FF; -fx-effect: dropshadow(gaussian,  #00e0ff, 10, 0.5, 0, 0);" text="SALIR" textFill="#00e0ff">
+                     <effect>
+                        <Glow />
+                     </effect>
+                     <HBox.margin>
+                        <Insets top="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="50.0" left="100.0" right="100.0" top="70.0" />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </bottom>
+</BorderPane>

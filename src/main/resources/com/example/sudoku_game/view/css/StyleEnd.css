@@ -1,0 +1,66 @@
+/* Registro de la fuente retro */
+@font-face {
+    font-family: "Audiowide";
+    src: url("../../Fonts/Audiowide-Regular.ttf");
+}
+
+
+.root {
+    -fx-background-color: #0a0018;
+}
+
+
+#winText {
+    -fx-font-family: "Audiowide";
+    -fx-font-size: 38px;
+    -fx-text-fill: #3dbc39;
+}
+
+#subtitleText {
+    -fx-font-family: "Audiowide";
+    -fx-font-size: 10px;
+    -fx-text-fill: #b8b8b8;
+}
+
+
+#timeLable, #mistakeLabel, #helpLabel {
+    -fx-font-family: "Audiowide";
+    -fx-text-fill: #eeeeee;
+}
+
+
+#timeText, #mistakeText, #helpText {
+    -fx-font-family: "Audiowide";
+    -fx-text-fill: #00e0ff;
+}
+
+
+#againBtn {
+    -fx-font-family: "Audiowide";
+    -fx-background-color: #0d0221;
+    -fx-border-color: #c000ff;
+    -fx-text-fill: #ef4585;
+    -fx-border-radius: 3;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+#againBtn:hover {
+    -fx-background-color: rgba(192, 0, 255, 0.1);
+    -fx-effect: dropshadow(gaussian, #c000ff, 15, 0.6, 0, 0);
+}
+
+
+#quitBtn {
+    -fx-font-family: "Audiowide";
+    -fx-background-color: #0d0221;
+    -fx-border-color: #00e0ff;
+    -fx-text-fill: #00e0ff;
+    -fx-padding: 8 30;
+    -fx-cursor: hand;
+}
+
+#quitBtn:hover {
+    -fx-background-color: rgba(0, 224, 255, 0.1);
+    -fx-effect: dropshadow(gaussian, #00e0ff, 15, 0.6, 0, 0);
+}

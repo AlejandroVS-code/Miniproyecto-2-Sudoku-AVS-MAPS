@@ -1,0 +1,70 @@
+/* 1. Registro de la fuente legal */
+@font-face {
+    font-family: "Audiowide";
+    src: url("../../Fonts/Audiowide-Regular.ttf");
+}
+
+/* 2. Estilos para los textos de la interfaz */
+#titleText {
+    -fx-font-family: "Audiowide";
+    -fx-font-size: 18px;
+    -fx-text-fill: #ff00aa;
+}
+
+#timeText, #hintsText, #mistakeText {
+    -fx-font-family: "Audiowide";
+    -fx-font-size: 12px;
+}
+
+/* 3. Estilo para las celdas del tablero (Botones dentro de sudokuTable) */
+/* Usamos selectores de ID para las celdas siguiendo tu patrón cell_XX */
+#cell_00, #cell_01, #cell_02, #cell_03, #cell_04, #cell_05,
+#cell_10, #cell_11, #cell_12, #cell_13, #cell_14, #cell_15,
+#cell_20, #cell_21, #cell_22, #cell_23, #cell_24, #cell_25,
+#cell_30, #cell_31, #cell_32, #cell_33, #cell_34, #cell_35,
+#cell_40, #cell_41, #cell_42, #cell_43, #cell_44, #cell_45,
+#cell_50, #cell_51, #cell_52, #cell_53, #cell_54, #cell_55 {
+    -fx-font-family: "Audiowide";
+    -fx-font-size: 18px; /* Un poco más grande para legibilidad */
+    -fx-background-color: transparent;
+    -fx-border-color: #4b4b4b;
+    -fx-text-fill: #00eaff;
+}
+
+/* Efecto al pasar el mouse por una celda del sudoku */
+#cell_00:hover, #cell_10:hover, #cell_20:hover {
+    -fx-background-color: rgba(0, 234, 255, 0.1);
+}
+
+/* 4. Estilos para el selector de números (Teclado) */
+#btn1, #btn2, #btn3, #btn4, #btn5, #btn6 {
+    -fx-font-family: "Audiowide";
+    -fx-font-size: 20px;
+    -fx-text-fill: #ff00aa;
+    -fx-background-color: transparent;
+    -fx-border-color: #a855f7;
+}
+
+#btn1:hover, #btn2:hover, #btn3:hover, #btn4:hover, #btn5:hover, #btn6:hover {
+    -fx-background-color: rgba(255, 0, 170, 0.1);
+    -fx-border-color: #ff00aa;
+}
+
+/* 5. Estilos para los botones de control */
+#helpBtn, #restartBtn {
+    -fx-font-family: "Audiowide";
+    -fx-font-size: 14px;
+}
+
+.button.selected {
+    -fx-background-color: #ff3ea5 !important;
+    -fx-text-fill: white !important;
+    -fx-border-color: #ff00aa !important;
+    -fx-border-width: 3px !important;
+}
+.button.error {
+    -fx-background-color: rgba(255, 0, 0, 0.2); /* Fondo rojo transparente */
+    -fx-border-color: #ff0000 !important;       /* Borde rojo neón */
+    -fx-text-fill: #ff0000 !important;          /* Número en rojo */
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 0, 0, 0.8), 10, 0, 0, 0);
+}

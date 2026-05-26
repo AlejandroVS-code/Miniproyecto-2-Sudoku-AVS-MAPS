@@ -1,0 +1,29 @@
+@font-face {
+    font-family: "Audiowide";
+    src: url("../../Fonts/Audiowide-Regular.ttf");
+}
+
+#retroText {
+    -fx-font-family: "Audiowide";
+    -fx-text-fill: #ff4da6;
+    -fx-font-size: 36px;
+}
+
+#mainTitle {
+    -fx-font-family: "Audiowide";
+    -fx-text-fill: #00eaff;
+    -fx-font-size: 42px;
+}
+
+
+#subTitle {
+    -fx-font-family: "Audiowide";
+    -fx-text-fill: white;
+    -fx-font-size: 10px;
+    -fx-opacity: 0.8;
+}
+
+
+.button {
+    -fx-font-family: "Audiowide";
+}

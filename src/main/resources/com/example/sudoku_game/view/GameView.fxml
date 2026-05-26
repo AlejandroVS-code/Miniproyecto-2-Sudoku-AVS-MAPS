@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #0a0018; -fx-border-color: #2e2e70; -fx-border-width: 3; -fx-border-radius: 2;" stylesheets="@css/StyleGame.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sudoku_game.controller.GameController">
+   <children>
+      <HBox layoutX="-1.0" prefHeight="42.0" prefWidth="600.0" style="-fx-border-color: #ff00aa; -fx-background-color: #050b1a; -fx-border-width: 3;">
+         <children>
+            <Label fx:id="titleText" prefHeight="78.0" prefWidth="155.0" style="-fx-text-fill: #ff00aa; -fx-font-size: 18; -fx-font-weight: bold;" text="Retro sudoku">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutY="84.0" prefHeight="297.0" prefWidth="600.0">
+         <children>
+            <GridPane fx:id="sudokuTable" prefHeight="173.0" prefWidth="230.0" style="-fx-background-color: #120022; -fx-border-color: #ff00aa; -fx-border-width: 3; -fx-padding: 4; -fx-effect: dropshadow(gaussian, #ff00aa, 15, 0.4, 0, 0);">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="50.0" top="20.0" />
+               </HBox.margin>
+               <children>
+                  <Button fx:id="cell_00" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" />
+                  <Button fx:id="cell_10" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_20" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_30" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_40" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_50" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.rowIndex="5" />
+                  <Button fx:id="cell_01" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="2" GridPane.columnIndex="1" />
+                  <Button fx:id="cell_11" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_21" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_31" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_41" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_51" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Button fx:id="cell_02" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets right="6.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_03" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="3" />
+                  <Button fx:id="cell_04" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="4" />
+                  <Button fx:id="cell_05" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="5" />
+                  <Button fx:id="cell_12" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" right="6.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_13" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_14" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_15" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_22" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets right="6.0" top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_23" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_32" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" right="6.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_33" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_24" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_25" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_34" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_35" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                     <GridPane.margin>
+                        <Insets bottom="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_42" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets right="6.0" top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_52" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                     <GridPane.margin>
+                        <Insets right="6.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_44" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="4" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_43" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_45" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="5" GridPane.rowIndex="4">
+                     <GridPane.margin>
+                        <Insets top="3.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button fx:id="cell_53" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <Button fx:id="cell_54" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <Button fx:id="cell_55" mnemonicParsing="false" onAction="#handleCellClick" style="-fx-background-color: transparent; -fx-border-color: #8a8a8a; -fx-border-width: 1; -fx-text-fill: #00eaff; -fx-font-size: 10; -fx-font-weight: Bold; -fx-pref-width: 60; -fx-pref-height: 60;" text="1" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+               </children>
+            </GridPane>
+            <VBox alignment="CENTER" prefHeight="196.0" prefWidth="266.0">
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+               <children>
+                  <GridPane fx:id="numberSelector" alignment="CENTER" prefHeight="89.0" prefWidth="223.0" vgap="12.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="5.0" prefWidth="5.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="5.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="5.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Button fx:id="btn1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onNumberClick1" style="-fx-background-color: transparent; -fx-border-color: #a855f7; -fx-border-width: 2; -fx-text-fill: #ff00aa; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 0; -fx-border-radius: 0; -fx-pref-height: 45; -fx-pref-width: 55; -fx-effect: dropshadow(gaussian, #ff00aa, 8, 0.2, 0, 0);" text="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="btn2" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onNumberClick2" style="-fx-background-color: transparent; -fx-border-color: #a855f7; -fx-border-width: 2; -fx-text-fill: #ff00aa; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 0; -fx-border-radius: 0; -fx-pref-height: 45; -fx-pref-width: 55; -fx-effect: dropshadow(gaussian, #ff00aa, 8, 0.2, 0, 0);" text="2" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                        <Button fx:id="btn3" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onNumberClick3" style="-fx-background-color: transparent; -fx-border-color: #a855f7; -fx-border-width: 2; -fx-text-fill: #ff00aa; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 0; -fx-border-radius: 0; -fx-pref-height: 45; -fx-pref-width: 55; -fx-effect: dropshadow(gaussian, #ff00aa, 8, 0.2, 0, 0);" text="3" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="btn4" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onNumberClick4" style="-fx-background-color: transparent; -fx-border-color: #a855f7; -fx-border-width: 2; -fx-text-fill: #ff00aa; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 0; -fx-border-radius: 0; -fx-pref-height: 45; -fx-pref-width: 55; -fx-effect: dropshadow(gaussian, #ff00aa, 8, 0.2, 0, 0);" text="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets top="25.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="btn5" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onNumberClick5" style="-fx-background-color: transparent; -fx-border-color: #a855f7; -fx-border-width: 2; -fx-text-fill: #ff00aa; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 0; -fx-border-radius: 0; -fx-pref-height: 45; -fx-pref-width: 55; -fx-effect: dropshadow(gaussian, #ff00aa, 8, 0.2, 0, 0);" text="5" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                           <GridPane.margin>
+                              <Insets top="25.0" />
+                           </GridPane.margin>
+                        </Button>
+                        <Button fx:id="btn6" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onNumberClick6" style="-fx-background-color: transparent; -fx-border-color: #a855f7; -fx-border-width: 2; -fx-text-fill: #ff00aa; -fx-font-size: 20; -fx-font-weight: bold; -fx-background-radius: 0; -fx-border-radius: 0; -fx-pref-height: 45; -fx-pref-width: 55; -fx-effect: dropshadow(gaussian, #ff00aa, 8, 0.2, 0, 0);" text="6" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+                           <GridPane.margin>
+                              <Insets top="25.0" />
+                           </GridPane.margin>
+                        </Button>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+                  <Button fx:id="helpBtn" mnemonicParsing="false" onAction="#onHelpClick" style="-fx-background-color: transparent; -fx-border-width: 2; -fx-border-color: #ff3ea5; -fx-background-radius: 0; -fx-text-fill: #ff3ea5; -fx-border-radius: 0; -fx-font-size: 14; -fx-font-weight: Bold; -fx-effect: dropshadow(gaussian, #ff3ea5, 10, 0.2, 0, 0); -fx-pref-width: 200; -fx-pref-height: 30;" text="Ayuda">
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" top="30.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="restartBtn" mnemonicParsing="false" onAction="#onResetClick" style="-fx-background-color: transparent; -fx-border-color: #a855f7; -fx-border-width: 2; -fx-text-fill: #ff3ea5; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-size: 14; -fx-font-weight: Bold; -fx-effect: dropshadow(gaussian, #a855f7, 10, 0.2, 0, 0); -fx-pref-width: 200; -fx-pref-height: 30;" text="Reiniciar">
+                     <VBox.margin>
+                        <Insets left="50.0" right="50.0" top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox layoutX="1.0" layoutY="56.0" prefHeight="34.0" prefWidth="600.0">
+         <children>
+            <Label fx:id="timeText" graphicTextGap="1.0" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-border-color: #00eaff; -fx-border-width: 2; -fx-text-fill: #00eaff; -fx-font-size: 12; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #ff00aa, 8, 0.1, 0, 0);" text="00:00">
+               <HBox.margin>
+                  <Insets left="50.0" right="5.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/Clock.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+            <Label fx:id="hintsText" graphicTextGap="1.0" prefHeight="30.0" prefWidth="136.0" style="-fx-background-color: transparent; -fx-border-color: #ff3ea5; -fx-border-width: 2; -fx-text-fill: #ff3ea5; -fx-font-size: 12; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #ff00aa, 8, 0.1, 0, 0);" text="Pistas: 0/3">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/light%20bulb.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="110.0" />
+               </HBox.margin></Label>
+            <Label fx:id="mistakeText" prefHeight="31.0" prefWidth="147.0" style="-fx-background-color: transparent; -fx-border-color: #d8a48f; -fx-border-width: 2; -fx-text-fill: #d8a48f; -fx-font-size: 12; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, #ff00aa, 8, 0.1, 0, 0);" text="Errores: 0/3">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fitHeight="37.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../Imagenes/x.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
