@@ -1,6 +1,7 @@
 package com.example.sudoku_game.controller;
 
 import com.example.sudoku_game.controller.HomeController;
+import com.example.sudoku_game.model.Music;
 import com.example.sudoku_game.view.GameStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,33 +22,13 @@ public class HomeController {
 
     @FXML
     public void initialize() {
-        playMenuMusic();
+        Music.getInstance().playLoop("Starts.mp3");
     }
-    private void playMenuMusic() {
-        try {
-            // Asegúrate de que la ruta sea correcta según tu estructura de carpetas
-            URL resource = getClass().getResource("/com/example/sudoku_game/Sounds/Starts.mp3");
 
-            if (resource != null) {
-                Media media = new Media(resource.toExternalForm());
-                musicPlayer = new MediaPlayer(media);
-
-                musicPlayer.setCycleCount(MediaPlayer.INDEFINITE); // Bucle infinito
-                musicPlayer.setVolume(0.3); // Volumen moderado para el menú
-                musicPlayer.play();
-            } else {
-                System.out.println("No se encontró el archivo de música de inicio.");
-            }
-        } catch (Exception e) {
-            System.out.println("Error al reproducir música de inicio: " + e.getMessage());
-        }
-    }
     @FXML
     void handlePlay(ActionEvent event) throws IOException {
-        // DETENER la música antes de cambiar de ventana
-        if (musicPlayer != null) {
-            musicPlayer.stop();
-        }
+
+        Music.getInstance().stopAndDispose();
 
         new GameStage();
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
@@ -56,6 +37,7 @@ public class HomeController {
 
     @FXML
     void handleQuit(ActionEvent event) {
+        Music.getInstance().stopAndDispose();
         System.exit(0);
     }
 }

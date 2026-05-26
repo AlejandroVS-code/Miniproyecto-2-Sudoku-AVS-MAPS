@@ -24,8 +24,8 @@ import java.util.HashMap;
 public class GameController {
     @FXML private Label titleText;
     @FXML private Label hintsText;
-    @FXML private Label timeText; // Basado en tu FXML
-    @FXML private Label mistakeText; // Basado en tu FXML
+    @FXML private Label timeText;
+    @FXML private Label mistakeText;
     @FXML private Button cell_00; @FXML private Button cell_01; @FXML private Button cell_02; @FXML private Button cell_03; @FXML private Button cell_04; @FXML private Button cell_05;
     @FXML private Button cell_10; @FXML private Button cell_11; @FXML private Button cell_12; @FXML private Button cell_13; @FXML private Button cell_14; @FXML private Button cell_15;
     @FXML private Button cell_20; @FXML private Button cell_21; @FXML private Button cell_22; @FXML private Button cell_23; @FXML private Button cell_24; @FXML private Button cell_25;
@@ -33,46 +33,13 @@ public class GameController {
     @FXML private Button cell_40; @FXML private Button cell_41; @FXML private Button cell_42; @FXML private Button cell_43; @FXML private Button cell_44; @FXML private Button cell_45;
     @FXML private Button cell_50; @FXML private Button cell_51; @FXML private Button cell_52; @FXML private Button cell_53; @FXML private Button cell_54; @FXML private Button cell_55;
 
-
-
-
-
-
-    // HashMap para mapear las coordenadas "fila,columna" a los objetos Button del FXML
     private HashMap<String, Button> boardButtons;
     private Sudoku sudokuModel;
     private String selectedKey;
     private GameStatus gameStatus;
     private Timer timer;
     private Timeline timeline;
-    private MediaPlayer musicPlayer;
 
-
-
-    private void playBackgroundMusic() {
-        try {
-            // Buscamos el recurso
-            URL resource = getClass().getResource("/com/example/sudoku_game/Sounds/Background.mp3");
-
-            if (resource != null) {
-                Media media = new Media(resource.toExternalForm());
-                musicPlayer = new MediaPlayer(media);
-
-                // Repetición infinita
-                musicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-
-                // Volumen sugerido (0.2 es perfecto para que no tape los clics)
-                musicPlayer.setVolume(0.2);
-
-                musicPlayer.play();
-                System.out.println("Música neón iniciada...");
-            } else {
-                System.out.println("Error: No se encontró el archivo de sonido.");
-            }
-        } catch (Exception e) {
-            System.out.println("No se pudo reproducir la música: " + e.getMessage());
-        }
-    }
 
     @FXML
     public void initialize() {
@@ -82,46 +49,44 @@ public class GameController {
         gameStatus = new GameStatus();
         timer = new Timer();
 
-        // Inicializamos el tablero lógico
+
         sudokuModel.generateBoard();
 
-        // Mapeamos los botones del FXML al HashMap
+
         mapButtons();
 
-        // Pintamos el tablero por primera vez
+
         renderBoard();
         hintsText.setText("Pistas: 0/3");
         mistakeText.setText("Errores: 0/3");
         setupTimer();
-        playBackgroundMusic();
+        Music.getInstance().playLoop("Background.mp3");
+
     }
 
     private void setupTimer() {
-        // Creamos un evento que se dispara cada 1 segundo
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            // ORDEN AL MODELO: "Añade un segundo"
-            timer.addSecond();
 
-            // ORDEN A LA VISTA: "Muestra lo que el modelo diga"
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            timer.addSecond();
             timeText.setText(timer.getFormattedTime());
         }));
 
-        timeline.setCycleCount(Timeline.INDEFINITE); // Para que no se detenga solo
-        timeline.play(); // ¡Arranca el reloj!
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
     public void setupKeyEvents(Scene scene) {
         scene.setOnKeyPressed(event -> {
             String key = event.getText().toLowerCase();
-            // Teclado numérico
+
             if (key.matches("[1-6]")) {
                 placeNumber(Integer.parseInt(key));
             }
-            // Teclas de solución
+
             if (key.equals("ñ")) {
-                revealFullSolution(); // Autocompletar tablero actual
+                revealFullSolution();
             } else if (key.equals("n")) {
-                showSolutionWindow(); // Nueva ventana con la solución
+                showSolutionWindow();
             }
         });
     }
@@ -134,14 +99,14 @@ public class GameController {
             if (value != null) {
                 btn.setText(value.toString());
                 btn.getStyleClass().remove("error");
-                btn.setDisable(true); // Bloquear celdas
+                btn.setDisable(true);
 
-                // Actualizar el modelo para que sepa que está lleno
+
                 sudokuModel.validateAndPlace(key, value);
             }
         });
 
-        // Validar victoria inmediata
+
         if (sudokuModel.isGameFinished()) {
             handleWin();
         }
@@ -152,7 +117,7 @@ public class GameController {
         solutionStage.setTitle("Solución Generada (Stack)");
         solutionStage.setResizable(false);
 
-        // Un GridPane para organizar los números como el tablero
+
         javafx.scene.layout.GridPane grid = new javafx.scene.layout.GridPane();
         grid.setStyle("-fx-background-color: #0a0018; -fx-padding: 15; -fx-hgap: 8; -fx-vgap: 8;");
 
@@ -162,7 +127,6 @@ public class GameController {
             for (int c = 0; c < 6; c++) {
                 String key = r + "," + c;
                 Label lbl = new Label(sol.get(key).toString());
-                // Estilo neón cian para la solución
                 lbl.setStyle("-fx-text-fill: #00e0ff; " +
                         "-fx-font-size: 18px; " +
                         "-fx-font-weight: bold; " +
@@ -201,26 +165,24 @@ public class GameController {
         if (selectedKey == null) return;
 
         if (gameStatus.canUseHelp()) {
-            // 1. Obtenemos el valor correcto del modelo
+
             int correctValue = sudokuModel.getHelpValue(selectedKey);
 
-            // 2. ACTUALIZACIÓN CRÍTICA: Notificar al modelo que esta celda ya tiene su valor
-            // Esto hace que el conteo interno de celdas llenas aumente.
+
             sudokuModel.validateAndPlace(selectedKey, correctValue);
 
-            // 3. Actualizar la interfaz (Vista)
             Button currentButton = boardButtons.get(selectedKey);
             currentButton.setText(String.valueOf(correctValue));
 
-            // Estética
-            currentButton.getStyleClass().removeAll("error", "selected");
-            currentButton.setDisable(true); // Bloquear para que no se pueda cambiar
 
-            // 4. Actualizar contadores de ayuda
+            currentButton.getStyleClass().removeAll("error", "selected");
+            currentButton.setDisable(true);
+
+
             gameStatus.addHelp();
             hintsText.setText(gameStatus.getHelpsFormatted());
 
-            // 5. Verificar si con esta ayuda se completó el tablero
+
             if (sudokuModel.isGameFinished()) {
                 handleWin();
             }
@@ -236,26 +198,26 @@ public class GameController {
 
         timer.reset();
         gameStatus.reset();
-        sudokuModel.generateBoard(); // Genera un tablero totalmente nuevo
+        sudokuModel.generateBoard();
 
-        // 2. REINICIAR VISTA DE TEXTOS (Modelo de Mensajería)
+
         timeText.setText(timer.getFormattedTime());
         mistakeText.setText(gameStatus.getMistakesFormatted());
         hintsText.setText(gameStatus.getHelpsFormatted());
 
-        // 3. LIMPIAR EL TABLERO VISUAL (Botones)
+
         for (String key : boardButtons.keySet()) {
             Button btn = boardButtons.get(key);
 
-            // Quitar clases de estilo (seleccionado, error)
+
             btn.getStyleClass().removeAll("selected", "error");
 
-            // Habilitar todos los botones para que el render pueda bloquear solo las pistas
+
             btn.setDisable(false);
         }
         renderBoard();
 
-        // 5. LIMPIAR SELECCIÓN ACTUAL
+
         selectedKey = null;
 
         System.out.println("Juego reiniciado con éxito.");
@@ -267,26 +229,26 @@ public class GameController {
 
         Button clickedButton = (Button) event.getSource();
 
-        // Solo permitimos seleccionar celdas que no estén bloqueadas (las que no son pistas)
+
         if (clickedButton.isDisable()) return;
 
         for (String key : boardButtons.keySet()) {
             if (boardButtons.get(key).equals(clickedButton)) {
 
-                // 1. Quitar la clase al anterior
+
                 if (selectedKey != null) {
                     boardButtons.get(selectedKey).getStyleClass().remove("selected");
                 }
 
-                // 2. Actualizar la selección
+
                 selectedKey = key;
 
-                // 3. Añadir la clase al nuevo
+
                 if (!clickedButton.getStyleClass().contains("selected")) {
                     clickedButton.getStyleClass().add("selected");
                 }
 
-                System.out.println("Celda seleccionada: " + selectedKey);
+
                 break;
             }
         }
@@ -299,9 +261,9 @@ public class GameController {
 
         Button currentButton = boardButtons.get(selectedKey);
 
-        // 1. Delegamos la lógica de validación y guardado al modelo Sudoku
+
         if (sudokuModel.validateAndPlace(selectedKey, number)) {
-            // ÉXITO: El controlador solo actualiza la vista
+
             currentButton.setText(String.valueOf(number));
             currentButton.getStyleClass().remove("error");
             System.out.println("Celdas llenas: " + sudokuModel.getBoard().size());
@@ -311,7 +273,7 @@ public class GameController {
             }
 
         } else {
-            // ERROR: El controlador solo notifica a los modelos
+
             gameStatus.addMistake();
 
             currentButton.setText(String.valueOf(number));
@@ -319,7 +281,7 @@ public class GameController {
                 currentButton.getStyleClass().add("error");
             }
 
-            // 2. Delegamos la creación del mensaje al modelo GameStatus
+
             mistakeText.setText(gameStatus.getMistakesFormatted());
             if (gameStatus.isGameOver()) {
                 handleLoss();
@@ -335,7 +297,7 @@ public class GameController {
 
         boardButtons.forEach((key, btn) -> btn.setDisable(true));
 
-        // Pasamos: tiempo, errores, ayudas (del modelo) y true (porque ganó)
+
         changeToEndStage(timer.getFormattedTime(),
                 gameStatus.getMistakes(),
                 gameStatus.getHelpsUsed(),
@@ -347,7 +309,7 @@ public class GameController {
         if (timeline != null) timeline.stop();
         boardButtons.forEach((key, btn) -> btn.setDisable(true));
 
-        // Pasamos: tiempo, errores, ayudas (del modelo) y false (porque perdió)
+
         changeToEndStage(timer.getFormattedTime(),
                 gameStatus.getMistakes(),
                 gameStatus.getHelpsUsed(),
@@ -359,15 +321,12 @@ public class GameController {
     private void changeToEndStage(String time, int mistakes, int helps, boolean won) {
         PauseTransition pause = new PauseTransition(Duration.seconds(3));
 
-        // 2. Definimos qué pasará cuando termine la pausa
+
         pause.setOnFinished(event -> {
             try {
-                if (musicPlayer != null) {
-                    musicPlayer.stop();
-                }
+                Music.getInstance().stopAndDispose();
 
-                // Aquí va tu código actual de cambio de ventana
-                var resource = getClass().getResource("/com/example/Sudoku_game/view/EndView.fxml");
+                var resource = getClass().getResource("/com/example/sudoku_game/view/EndView.fxml");
 
                 if (resource == null) {
                     System.out.println("Error: No se encontró el archivo FXML.");
@@ -377,10 +336,9 @@ public class GameController {
 
                 FXMLLoader loader = new FXMLLoader(resource);
                 Parent root = loader.load();
-                // 1. Obtener el controlador de la nueva ventana
+
                 EndController endController = loader.getController();
 
-                // 2. Pasar los datos recolectados
                 endController.setData(time, mistakes, helps, won);
 
                 Stage stage = (Stage) timeText.getScene().getWindow();
@@ -393,7 +351,7 @@ public class GameController {
             }
         });
 
-        // 3. ¡Arrancamos la pausa!
+
         pause.play();
     }
 
@@ -403,10 +361,7 @@ public class GameController {
 
 
 
-    /**
-     * Maps FXML button IDs to the boardButtons HashMap.
-     * We do this manually or with a loop to avoid using lists.
-     */
+
     private void mapButtons() {
 
         boardButtons.put("0,0", cell_00); boardButtons.put("0,1", cell_01); boardButtons.put("0,2", cell_02); boardButtons.put("0,3", cell_03); boardButtons.put("0,4", cell_04); boardButtons.put("0,5", cell_05);
@@ -417,13 +372,10 @@ public class GameController {
         boardButtons.put("5,0", cell_50); boardButtons.put("5,1", cell_51); boardButtons.put("5,2", cell_52); boardButtons.put("5,3", cell_53); boardButtons.put("5,4", cell_54); boardButtons.put("5,5", cell_55);
     }
 
-    /**
-     * Shows the generated Sudoku numbers on the UI buttons.
-     */
+
     private void renderBoard() {
         HashMap<String, Integer> currentBoard = sudokuModel.getBoard();
 
-        // Recorremos el tablero usando coordenadas
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
                 String key = row + "," + col;
@@ -433,9 +385,9 @@ public class GameController {
                     Integer value = currentBoard.get(key);
                     if (value != null) {
                         btn.setText(value.toString());
-                        btn.setDisable(true); // Bloqueamos las pistas iniciales
+                        btn.setDisable(true);
                     } else {
-                        btn.setText(""); // Celda vacía para jugar
+                        btn.setText("");
                         btn.setDisable(false);
                     }
                 }

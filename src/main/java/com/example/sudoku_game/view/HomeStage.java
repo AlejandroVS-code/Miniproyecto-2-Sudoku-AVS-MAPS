@@ -17,11 +17,11 @@ public class HomeStage extends Stage {
      */
     public HomeStage() throws IOException {
 
-        Image icon = new Image(getClass().getResourceAsStream("/com/example/Sudoku_game/Imagenes/gameLogo.png"));
+        Image icon = new Image(getClass().getResourceAsStream("/com/example/sudoku_game/Imagenes/gameLogo.png"));
 
 
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/com/example/Sudoku_game/view/HomeView.fxml")
+                getClass().getResource("/com/example/sudoku_game/view/HomeView.fxml")
         );
 
         Parent root = loader.load();

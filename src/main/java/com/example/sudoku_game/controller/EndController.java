@@ -1,5 +1,6 @@
 package com.example.sudoku_game.controller;
 
+import com.example.sudoku_game.model.Music;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +22,7 @@ public class EndController {
     @FXML private Label helpText;
     @FXML private Button againBtn;
 
-    private MediaPlayer endMusicPlayer;
+
 
 
 
@@ -32,58 +33,32 @@ public class EndController {
 
         if (won) {
             winText.setText("YOU WIN");
-            winText.setStyle("-fx-text-fill: #3dbc39;"); // Verde neón [cite: 2]
+            winText.setStyle("-fx-text-fill: #3dbc39;");
         } else {
             winText.setText("GAME OVER");
-            winText.setStyle("-fx-text-fill: #ff004c;"); // Rojo neón
+            winText.setStyle("-fx-text-fill: #ff004c;");
         }
-        playEndMusic("Finish.mp3");
+        Music.getInstance().playLoop("Finish.mp3");
     }
 
-    private void playEndMusic(String fileName) {
-        if (endMusicPlayer != null) {
-            endMusicPlayer.stop();
-            endMusicPlayer.dispose();
-        }
 
-        try {
-            URL resource = getClass().getResource("/com/example/Sudoku_game/Sounds/" + fileName);
-            if (resource != null) {
-                Media media = new Media(resource.toExternalForm());
-                endMusicPlayer = new MediaPlayer(media);
-                endMusicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-                endMusicPlayer.setVolume(0.3);
-                endMusicPlayer.play();
-            }
-        } catch (Exception e) {
-            System.out.println("Error al reproducir audio final: " + e.getMessage());
-        }
-    }
 
 
 
     @FXML
     void onAgainClick(ActionEvent event) {
         try {
-            if (endMusicPlayer != null) {
-                endMusicPlayer.stop();
-                endMusicPlayer.dispose(); // Libera el reproductor para evitar que quede en memoria
-                endMusicPlayer = null;    // Limpiamos la referencia
-            }
-            // 1. Cargamos el FXML de la vista del juego
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Sudoku_game/view/GameView.fxml"));
+            Music.getInstance().stopAndDispose();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sudoku_game/view/GameView.fxml"));
             Parent root = loader.load();
 
-            // 2. OBTENEMOS EL NUEVO CONTROLADOR
             GameController gameController = loader.getController();
 
-            // 3. CREAMOS LA NUEVA ESCENA
             Scene gameScene = new Scene(root);
 
-            // 4. LE PASAMOS LA ESCENA AL CONTROLADOR (Paso CRÍTICO para el teclado)
             gameController.setupKeyEvents(gameScene);
 
-            // 5. Cambiamos la ventana
             Stage stage = (Stage) againBtn.getScene().getWindow();
             stage.setScene(gameScene);
             stage.show();
@@ -96,10 +71,7 @@ public class EndController {
 
     @FXML
     void onQuitClick(ActionEvent event) {
-        if (endMusicPlayer != null) {
-            endMusicPlayer.stop();
-            endMusicPlayer.dispose();
-        }
+        Music.getInstance().stopAndDispose();
         System.exit(0);
     }
 }
