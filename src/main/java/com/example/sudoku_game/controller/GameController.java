@@ -10,15 +10,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
+import java.util.Stack;
 
 
 public class GameController {
@@ -57,41 +56,35 @@ public class GameController {
 
 
         renderBoard();
-        hintsText.setText("Pistas: 0/3");
-        mistakeText.setText("Errores: 0/3");
+        hintsText.setText("Pistas: 0");
+        mistakeText.setText("Errores: 0");
         setupTimer();
         Music.getInstance().playLoop("Background.mp3");
 
     }
-
     private void setupTimer() {
-
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            timer.addSecond();
-            timeText.setText(timer.getFormattedTime());
-        }));
-
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), new TimerHandler()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
 
     public void setupKeyEvents(Scene scene) {
-        scene.setOnKeyPressed(event -> {
-            String key = event.getText().toLowerCase();
-
-            if (key.matches("[1-6]")) {
-                placeNumber(Integer.parseInt(key));
-            }
-
-            if (key.equals("ñ")) {
-                revealFullSolution();
-            } else if (key.equals("n")) {
-                showSolutionWindow();
-            }
-        });
+        scene.setOnKeyPressed(new KeyboardHandler(this));
     }
 
-    private void revealFullSolution() {
+
+     void eraseSelectedCell() {
+        if (selectedKey == null) return;
+
+        Button currentButton = boardButtons.get(selectedKey);
+
+        sudokuModel.getBoard().remove(selectedKey);
+
+        currentButton.setText("");
+        currentButton.getStyleClass().removeAll("error");
+    }
+
+    void revealFullSolution() {
         HashMap<String, Integer> sol = sudokuModel.getFullSolution();
 
         boardButtons.forEach((key, btn) -> {
@@ -112,7 +105,7 @@ public class GameController {
         }
     }
 
-    private void showSolutionWindow() {
+    void showSolutionWindow() {
         Stage solutionStage = new Stage();
         solutionStage.setTitle("Solución Generada (Stack)");
         solutionStage.setResizable(false);
@@ -162,35 +155,55 @@ public class GameController {
 
     @FXML
     void onHelpClick(javafx.event.ActionEvent event) {
-        if (selectedKey == null) return;
+        if (!gameStatus.canUseHelp()) return;
 
-        if (gameStatus.canUseHelp()) {
+        String targetKey;
 
-            int correctValue = sudokuModel.getHelpValue(selectedKey);
+        if (selectedKey != null) {
+            // Caso 1: hay celda seleccionada → usar esa
+            targetKey = selectedKey;
+        } else {
+            // Caso 2: no hay celda seleccionada → buscar una vacía al azar usando la pila
+            Stack<String> emptyCells = new Stack<>();
 
-
-            sudokuModel.validateAndPlace(selectedKey, correctValue);
-
-            Button currentButton = boardButtons.get(selectedKey);
-            currentButton.setText(String.valueOf(correctValue));
-
-
-            currentButton.getStyleClass().removeAll("error", "selected");
-            currentButton.setDisable(true);
-
-
-            gameStatus.addHelp();
-            hintsText.setText(gameStatus.getHelpsFormatted());
-
-
-            if (sudokuModel.isGameFinished()) {
-                handleWin();
+            for (int r = 0; r < 6; r++) {
+                for (int c = 0; c < 6; c++) {
+                    String key = r + "," + c;
+                    if (!sudokuModel.getBoard().containsKey(key)) {
+                        emptyCells.push(key);
+                    }
+                }
             }
 
-            selectedKey = null;
-        }
-    }
+            if (emptyCells.isEmpty()) return;
 
+
+            int randomIndex = new java.util.Random().nextInt(emptyCells.size());
+            for (int i = 0; i < randomIndex; i++) {
+                emptyCells.pop();
+            }
+            targetKey = emptyCells.pop();
+        }
+
+        // Revelar el número correcto en la celda objetivo
+        int correctValue = sudokuModel.getHelpValue(targetKey);
+        sudokuModel.validateAndPlace(targetKey, correctValue);
+
+        Button targetButton = boardButtons.get(targetKey);
+        targetButton.setText(String.valueOf(correctValue));
+        targetButton.getStyleClass().removeAll("error", "selected");
+        targetButton.setDisable(true);
+
+        // Actualizar contador
+        gameStatus.addHelp();
+        hintsText.setText(gameStatus.getHelpsFormatted());
+
+        if (sudokuModel.isGameFinished()) {
+            handleWin();
+        }
+
+        selectedKey = null;
+    }
 
 
 
@@ -199,6 +212,7 @@ public class GameController {
         timer.reset();
         gameStatus.reset();
         sudokuModel.generateBoard();
+        while (sudokuModel.popMove() != null) {}
 
 
         timeText.setText(timer.getFormattedTime());
@@ -220,7 +234,7 @@ public class GameController {
 
         selectedKey = null;
 
-        System.out.println("Juego reiniciado con éxito.");
+
     }
 
 
@@ -255,7 +269,7 @@ public class GameController {
 
     }
 
-    private void placeNumber(int number) {
+    void placeNumber(int number) {
 
         if (selectedKey == null) return;
 
@@ -266,8 +280,7 @@ public class GameController {
 
             currentButton.setText(String.valueOf(number));
             currentButton.getStyleClass().remove("error");
-            System.out.println("Celdas llenas: " + sudokuModel.getBoard().size());
-
+            sudokuModel.pushMove(selectedKey);
             if (sudokuModel.isGameFinished()) {
                 handleWin();
             }
@@ -280,12 +293,8 @@ public class GameController {
             if (!currentButton.getStyleClass().contains("error")) {
                 currentButton.getStyleClass().add("error");
             }
+            mistakeText.setText(gameStatus.getMistakesFormatted()); // ←
 
-
-            mistakeText.setText(gameStatus.getMistakesFormatted());
-            if (gameStatus.isGameOver()) {
-                handleLoss();
-            }
 
         }
 
@@ -294,28 +303,12 @@ public class GameController {
 
     private void handleWin() {
         if (timeline != null) timeline.stop();
-
         boardButtons.forEach((key, btn) -> btn.setDisable(true));
-
-
         changeToEndStage(timer.getFormattedTime(),
                 gameStatus.getMistakes(),
                 gameStatus.getHelpsUsed(),
                 true);
     }
-
-    private void handleLoss() {
-
-        if (timeline != null) timeline.stop();
-        boardButtons.forEach((key, btn) -> btn.setDisable(true));
-
-
-        changeToEndStage(timer.getFormattedTime(),
-                gameStatus.getMistakes(),
-                gameStatus.getHelpsUsed(),
-                false);
-    }
-
 
 
     private void changeToEndStage(String time, int mistakes, int helps, boolean won) {
@@ -394,5 +387,29 @@ public class GameController {
             }
         }
     }
+    @FXML
+    void onBackClick(javafx.event.ActionEvent event) {
+        String lastKey = sudokuModel.popMove();
+        if (lastKey == null) return;
+
+        sudokuModel.getBoard().remove(lastKey);
+
+
+        Button btn = boardButtons.get(lastKey);
+        if (btn != null) {
+            btn.setText("");
+            btn.getStyleClass().removeAll("error", "selected");
+            btn.setDisable(false);
+        }
+    }
+
+    private class TimerHandler implements javafx.event.EventHandler<javafx.event.ActionEvent> {
+        @Override
+        public void handle(javafx.event.ActionEvent event) {
+            timer.addSecond();
+            timeText.setText(timer.getFormattedTime());
+        }
+    }
+
 }
 

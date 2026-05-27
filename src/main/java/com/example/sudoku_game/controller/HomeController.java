@@ -1,16 +1,17 @@
 package com.example.sudoku_game.controller;
 
-import com.example.sudoku_game.controller.HomeController;
+
 import com.example.sudoku_game.model.Music;
 import com.example.sudoku_game.view.GameStage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.media.Media;
+
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.net.URL;
+
+
 
 public class HomeController {
     @FXML

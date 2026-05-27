@@ -8,12 +8,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class EndController {
     @FXML private Label winText;
@@ -34,9 +31,6 @@ public class EndController {
         if (won) {
             winText.setText("YOU WIN");
             winText.setStyle("-fx-text-fill: #3dbc39;");
-        } else {
-            winText.setText("GAME OVER");
-            winText.setStyle("-fx-text-fill: #ff004c;");
         }
         Music.getInstance().playLoop("Finish.mp3");
     }

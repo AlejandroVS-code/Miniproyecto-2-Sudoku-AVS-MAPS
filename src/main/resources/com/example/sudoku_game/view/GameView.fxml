@@ -237,12 +237,17 @@
                   </GridPane>
                   <Button fx:id="helpBtn" mnemonicParsing="false" onAction="#onHelpClick" style="-fx-background-color: transparent; -fx-border-width: 2; -fx-border-color: #ff3ea5; -fx-background-radius: 0; -fx-text-fill: #ff3ea5; -fx-border-radius: 0; -fx-font-size: 14; -fx-font-weight: Bold; -fx-effect: dropshadow(gaussian, #ff3ea5, 10, 0.2, 0, 0); -fx-pref-width: 200; -fx-pref-height: 30;" text="Ayuda">
                      <VBox.margin>
-                        <Insets left="50.0" right="50.0" top="30.0" />
+                        <Insets left="50.0" right="50.0" top="20.0" />
                      </VBox.margin>
                   </Button>
                   <Button fx:id="restartBtn" mnemonicParsing="false" onAction="#onResetClick" style="-fx-background-color: transparent; -fx-border-color: #a855f7; -fx-border-width: 2; -fx-text-fill: #ff3ea5; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-size: 14; -fx-font-weight: Bold; -fx-effect: dropshadow(gaussian, #a855f7, 10, 0.2, 0, 0); -fx-pref-width: 200; -fx-pref-height: 30;" text="Reiniciar">
                      <VBox.margin>
-                        <Insets left="50.0" right="50.0" top="20.0" />
+                        <Insets left="50.0" right="50.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button fx:id="backBtn" mnemonicParsing="false" onAction="#onBackClick" prefHeight="20.0" prefWidth="170.0" style="-fx-background-color: transparent; -fx-border-color: #3BA2FF; -fx-border-width: 2; -fx-text-fill: #ff3ea5; -fx-background-radius: 0; -fx-border-radius: 0; -fx-font-size: 14; -fx-font-weight: Bold; -fx-effect: dropshadow(gaussian, #a855f7, 10, 0.2, 0, 0);" text="Retroceder">
+                     <VBox.margin>
+                        <Insets top="10.0" />
                      </VBox.margin>
                   </Button>
                </children>

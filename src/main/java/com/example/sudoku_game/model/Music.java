@@ -21,24 +21,14 @@ public class Music implements IMusic {
 
 
     private Music() {}
-    /**
-     * Retrieves the globally accessible unique instance of the Music manager.
-     * Implements lazy initialization to create the manager object only when it is requested for the first time.
-     * * @return The single, global thread-safe instance of the {@link Music} manager.
-     */
+
     public static Music getInstance() {
         if (instance == null) {
             instance = new Music();
         }
         return instance;
     }
-    /**
-     * Initiates infinite, continuous background looping audio playback for a specified track asset.
-     * Fulfills the {@link IMusic#playLoop(String)} contract. It automatically intercepts, halts,
-     * and clears any pre-existing active media playback context before parsing the target resource stream.
-     * * @param fileName The simple file name with its extension string located inside the
-     * resource folder framework (e.g., "Background.mp3", "Finish.mp3").
-     */
+
     @Override
     public void playLoop(String fileName) {
 
@@ -61,11 +51,7 @@ public class Music implements IMusic {
             System.out.println("Excepción al intentar reproducir (" + fileName + "): " + e.getMessage());
         }
     }
-    /**
-     * Forcefully interrupts the running multimedia track and tears down the active hardware playback system.
-     * Fulfills the {@link IMusic#stopAndDispose()} contract, freeing native system audio line decoders,
-     * terminating background processing playback loops, and releasing heap pointer references for garbage collection.
-     */
+
     @Override
     public void stopAndDispose() {
         if (mediaPlayer != null) {
