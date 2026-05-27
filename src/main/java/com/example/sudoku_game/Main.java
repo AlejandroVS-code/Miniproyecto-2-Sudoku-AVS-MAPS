@@ -9,7 +9,7 @@ import java.io.IOException;
  * The main entry point of the Sudoku game application.
  * This class extends the JavaFX {@link Application} class and is responsible
  * for bootstrapping the runtime environment and launching the initial user interface.
- * * @author Alejandro Valencia
+ * @author Alejandro Valencia
  * @author Maria Alejandra Pizarro
  * @version 1.0
  */
