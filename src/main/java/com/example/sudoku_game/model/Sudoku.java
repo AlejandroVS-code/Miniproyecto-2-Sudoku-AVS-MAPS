@@ -315,6 +315,11 @@ public class Sudoku implements ISudoku {
         int row = Integer.parseInt(coordinate.substring(0, commaPos));
         int col = Integer.parseInt(coordinate.substring(commaPos + 1));
 
+        Integer correctValue = solution.get(coordinate);
+        if (correctValue == null || correctValue != value) {
+            return false;
+        }
+
         if (isValidMove(row, col, value)) {
             updateCellValue(row, col, value);
             return true;
