@@ -83,21 +83,21 @@ public class EndController {
     @FXML
     void onAgainClick(ActionEvent event) {
         try {
-            // Stop finish music before transitioning
+
             Music.getInstance().stopAndDispose();
 
-            // Load the game view layout
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/sudoku_game/view/GameView.fxml"));
             Parent root = loader.load();
 
-            // Retrieve the game controller and set up keyboard events
+
             GameController gameController = loader.getController();
 
             Scene gameScene = new Scene(root);
 
             gameController.setupKeyEvents(gameScene);
 
-            // Replace the current scene with the game screen
+
             Stage stage = (Stage) againBtn.getScene().getWindow();
             stage.setScene(gameScene);
             stage.show();

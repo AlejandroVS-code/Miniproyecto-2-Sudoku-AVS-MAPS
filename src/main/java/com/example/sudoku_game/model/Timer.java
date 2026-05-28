@@ -65,11 +65,11 @@ public class Timer implements ITimer {
     @Override
     public String getFormattedTime() {
 
-    // Calculate minutes and remaining seconds
+
         int mins = seconds / 60;
         int secs = seconds % 60;
 
-        // Format and return as MM:SS
+
         return String.format("%02d:%02d", mins, secs);
     }
 }

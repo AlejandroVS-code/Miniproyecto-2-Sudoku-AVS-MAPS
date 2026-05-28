@@ -60,16 +60,16 @@ public class Music implements IMusic {
     @Override
     public void playLoop(String fileName) {
 
-        // Stop and release any currently playing audio
+
         stopAndDispose();
 
         try {
 
-            // Resolve the audio file from the resources folder
+
             URL resource = getClass().getResource("/com/example/sudoku_game/Sounds/" + fileName);
 
             if (resource != null) {
-                // Create and configure the media player
+
                 Media media = new Media(resource.toExternalForm());
                 mediaPlayer = new MediaPlayer(media);
 

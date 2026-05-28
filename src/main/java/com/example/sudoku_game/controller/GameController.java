@@ -109,18 +109,18 @@ public class GameController {
         gameStatus = new GameStatus();
         timer = new Timer();
 
-        // Generate a valid solvable puzzle
+
         sudokuModel.generateBoard();
 
-        // Map FXML buttons to their coordinate keys
+
         mapButtons();
 
-        // Render the initial board and reset UI labels
+
         renderBoard();
         hintsText.setText("Pistas: 0");
         mistakeText.setText("Errores: 0");
 
-        // Start the game timer and background music
+
         setupTimer();
         Music.getInstance().playLoop("Background.mp3");
 
@@ -266,10 +266,10 @@ public class GameController {
         String targetKey;
 
         if (selectedKey != null) {
-            // Use the currently selected cell
+
             targetKey = selectedKey;
         } else {
-            // Find a random empty cell using a stack
+
             Stack<String> emptyCells = new Stack<>();
 
             for (int r = 0; r < 6; r++) {
@@ -283,7 +283,7 @@ public class GameController {
 
             if (emptyCells.isEmpty()) return;
 
-            // Pick a random cell from the stack
+
             int randomIndex = new java.util.Random().nextInt(emptyCells.size());
             for (int i = 0; i < randomIndex; i++) {
                 emptyCells.pop();
@@ -291,7 +291,7 @@ public class GameController {
             targetKey = emptyCells.pop();
         }
 
-        // Reveal the correct value in the target cell
+
         int correctValue = sudokuModel.getHelpValue(targetKey);
         sudokuModel.validateAndPlace(targetKey, correctValue);
 
@@ -300,7 +300,7 @@ public class GameController {
         targetButton.getStyleClass().removeAll("error", "selected");
         targetButton.setDisable(true);
 
-        // Update hint counter in UI
+
         gameStatus.addHelp();
         hintsText.setText(gameStatus.getHelpsFormatted());
 
@@ -321,18 +321,18 @@ public class GameController {
      */
     @FXML void onResetClick(javafx.event.ActionEvent event) {
 
-        // Reset all model state
+
         timer.reset();
         gameStatus.reset();
         sudokuModel.generateBoard();
         while (sudokuModel.popMove() != null) {}
 
-        // Reset UI labels
+
         timeText.setText(timer.getFormattedTime());
         mistakeText.setText(gameStatus.getMistakesFormatted());
         hintsText.setText(gameStatus.getHelpsFormatted());
 
-        // Clear all button styles and re-enable cells
+
         for (String key : boardButtons.keySet()) {
             Button btn = boardButtons.get(key);
 
@@ -343,7 +343,7 @@ public class GameController {
             btn.setDisable(false);
         }
 
-        // Re-render the new board
+
         renderBoard();
         selectedKey = null;
 
@@ -363,18 +363,18 @@ public class GameController {
 
         Button clickedButton = (Button) event.getSource();
 
-        // Ignore clicks on disabled (pre-filled) cells
+
         if (clickedButton.isDisable()) return;
 
         for (String key : boardButtons.keySet()) {
             if (boardButtons.get(key).equals(clickedButton)) {
 
-                // Deselect previously selected cell
+
                 if (selectedKey != null) {
                     boardButtons.get(selectedKey).getStyleClass().remove("selected");
                 }
 
-                // Select the new cell
+
                 selectedKey = key;
 
 
@@ -392,45 +392,36 @@ public class GameController {
     /**
      * Places a number in the currently selected cell and validates it against the solution.
      *
-     * If the value is correct, it is placed on the board and the move is recorded
-     * in the history stack. If incorrect, a mistake is registered and the cell
-     * is marked with the "error" style. After each correct placement, the game
-     * checks whether the board is complete.
+     * If the value is correct, it is placed on the board, any error styling is removed,
+     * and the move is recorded in the history stack. If incorrect, a mistake is registered,
+     * the UI is updated, and the cell is marked with the "error" style. After each correct
+     * placement, the game checks whether the board is complete.
      *
-     * @param number the number to place in the selected cell (1–6).
+     * @param number the number to place in the selected cell.
      */
     void placeNumber(int number) {
-
         if (selectedKey == null) return;
 
         Button currentButton = boardButtons.get(selectedKey);
 
-
         if (sudokuModel.validateAndPlace(selectedKey, number)) {
-
-            // Correct placement
             currentButton.setText(String.valueOf(number));
             currentButton.getStyleClass().remove("error");
             sudokuModel.pushMove(selectedKey);
             if (sudokuModel.isGameFinished()) {
                 handleWin();
             }
-
         } else {
-
-            // Incorrect placement — register mistake
             gameStatus.addMistake();
-
             currentButton.setText(String.valueOf(number));
             if (!currentButton.getStyleClass().contains("error")) {
                 currentButton.getStyleClass().add("error");
             }
-            mistakeText.setText(gameStatus.getMistakesFormatted()); // update mistake label
+            mistakeText.setText(gameStatus.getMistakesFormatted());
 
 
+            sudokuModel.pushMove("e:" + selectedKey);
         }
-
-
     }
     /**
      * Handles the win condition when the player completes the board correctly.
@@ -553,11 +544,20 @@ public class GameController {
         String lastKey = sudokuModel.popMove();
         if (lastKey == null) return;
 
-        sudokuModel.getBoard().remove(lastKey);
 
+        boolean wasError = lastKey.startsWith("e:");
+        String realKey = wasError ? lastKey.substring(2) : lastKey;
 
-        Button btn = boardButtons.get(lastKey);
-        if (btn != null) {
+        Button btn = boardButtons.get(realKey);
+        if (btn == null) return;
+
+        if (wasError) {
+
+            btn.setText("");
+            btn.getStyleClass().removeAll("error", "selected");
+        } else {
+
+            sudokuModel.getBoard().remove(realKey);
             btn.setText("");
             btn.getStyleClass().removeAll("error", "selected");
             btn.setDisable(false);

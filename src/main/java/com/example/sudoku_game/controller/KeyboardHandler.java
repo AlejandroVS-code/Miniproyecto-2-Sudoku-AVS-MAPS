@@ -56,22 +56,22 @@ public class KeyboardHandler implements EventHandler<KeyEvent> {
      */
     @Override
     public void handle(KeyEvent event) {
-        // Normalize the key input to lowercase for consistent comparison
+
         String key = event.getText().toLowerCase();
 
-        // Place a number (1–6) in the currently selected cell
+
         if (key.matches("[1-6]")) {
             controller.placeNumber(Integer.parseInt(key));
         }
 
-        // Reveal the full solution or open the solution window
+
         if (key.equals("ñ")) {
             controller.revealFullSolution();
         } else if (key.equals("n")) {
             controller.showSolutionWindow();
         }
 
-        // Erase the value in the currently selected cell
+
         if (event.getCode() == KeyCode.BACK_SPACE) {
             controller.eraseSelectedCell();
         }

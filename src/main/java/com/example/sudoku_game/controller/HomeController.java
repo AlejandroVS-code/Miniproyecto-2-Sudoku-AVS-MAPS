@@ -72,11 +72,7 @@ public class HomeController {
      */
     @FXML
     void handlePlay(ActionEvent event) throws IOException {
-
-        // Stop background music before transitioning to the game
         Music.getInstance().stopAndDispose();
-
-        // Close the current home screen window
         new GameStage();
         Stage currentStage = (Stage) btnPlay.getScene().getWindow();
         currentStage.close();
