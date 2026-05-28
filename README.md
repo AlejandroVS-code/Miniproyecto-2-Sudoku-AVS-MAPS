@@ -9,7 +9,7 @@ A fully functional 6x6 Sudoku game built with Java, JavaFX, and Scene Builder, f
 | Name | GitHub                                                   |
 |---|----------------------------------------------------------|
 | Alejandro Valencia | [@AlejandroVS-code](https://github.com/AlejandroVS-code) |
-| Maria Alejandra Pizarro | — [@Alejapizasar](https://github.com/Alejapizasar)       |
+| Maria Alejandra Pizarro | [@Alejapizasar](https://github.com/Alejapizasar)         |
 
 ---
 
